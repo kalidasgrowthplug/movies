@@ -11,3 +11,13 @@ export const getMovies = async () => {
     return error;
   }
 };
+
+export const singleMovie = async (id) => {
+  try {
+    const url = apiURL + `movie/${id}?api_key=${apiKey}&language=en-US`;
+    const res = await apiCaller("GET", url, null);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
