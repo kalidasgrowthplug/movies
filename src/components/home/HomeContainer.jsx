@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import banner from "../../assets/wall.jpg";
+import { imageURL } from "../../config/config";
+
+import { PlayCircleFilled } from "@ant-design/icons";
+
 import { Link } from "react-router-dom";
 
 const Container = styled.div``;
@@ -10,7 +14,23 @@ const Banner = styled.div`
 `;
 
 const MoviesContainer = styled.div`
-  padding: 30px;
+  padding: 30px 160px;
+`;
+
+const MovieListContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+`;
+const MovieDetailContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: #263f61;
+  text-align: center;
+  padding: 0px 10px;
+  .anticon {
+    color: #ff5e62;
+  }
 `;
 
 const HomeContainer = (props) => {
@@ -27,10 +47,41 @@ const HomeContainer = (props) => {
       </Banner>
       <MoviesContainer>
         <h2 style={{ color: "white", fontWeight: 400 }}>Trending</h2>
-        <div></div>
+        <MovieListContainer>
+          {movies &&
+            movies.results &&
+            movies.results.map((movie) => {
+              return (
+                <Link to={`/movie/${movie.id}`}>
+                  <div>
+                    <img
+                      style={{
+                        height: "135px",
+                        width: "281px",
+                        objectFit: "cover",
+                      }}
+                      src={imageURL + movie.poster_path}
+                    />
+                    <MovieDetailContainer>
+                      <h6
+                        style={{
+                          color: "white",
+                          textAlign: "center",
+                          objectPosition: "top",
+                        }}
+                      >
+                        {movie.original_title}
+                      </h6>
+                      <PlayCircleFilled style={{ fontSize: "30px" }} />
+                    </MovieDetailContainer>
+                  </div>
+                </Link>
+              );
+            })}
+        </MovieListContainer>
       </MoviesContainer>
     </Container>
   );
 };
-//api.themoviedb.org/3/movie/315162?api_key=fe17c67e56783c08fb10e1d624399ba7&language=en-US
+
 export default HomeContainer;
